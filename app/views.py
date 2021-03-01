@@ -2,8 +2,14 @@ from app import app
 from flask import render_template, request, redirect, jsonify, make_response
 from datetime import datetime
 
-
-
+head_list = {
+             "Home":"/",
+            "Abjut":"/about",
+             "Jinja":"/jinja",
+             "Sign up":"/sign_up",
+             "Guestbook":"/guestbook"
+             }
+                   
 @app.template_filter("clean_date")
 def clean_date(dt):
         return dt.strftime("%d %b %Y %H:%M:%S %A") 
@@ -139,13 +145,15 @@ def profile(username):
 @app.route("/multiple/<foo>/<bar>/<baz>")
 def multiple(foo, bar, baz):
 
-    print(f"foo is {foo}")
-    print(f"bar is {bar}")
-    print(f"baz is {baz}")
+        print(f"foo is {foo}")
+        print(f"bar is {bar}")
+        print(f"baz is {baz}")
 
 
-    return f"foo is {foo}, bar is {bar}, baz is {baz}"
+        return f"foo is {foo}, bar is {bar}, baz is {baz}"
 
+
+'''
 
 @app.route("/json", method=["POST"])
 def json_example():
@@ -166,3 +174,22 @@ def json_example():
 
                 # The request body wasn't JSON so return a 400 HTTP status code
                 return "Request was not JSON", 400     return 'Thanks!', 200
+
+'''
+@app.route("/guestbook")
+def guestbook():
+        return render_template("public/guestbook.html")
+
+@app.route("/guestbook/create-entry", methods=["POST"])
+def create_entry():
+        
+
+        req = request.get_json()
+
+        print(req)
+
+#        res = make_response(jsonify({"message": "OK"}), 200)
+        res = make_response(jsonify(req), 200)
+
+        return res
+
