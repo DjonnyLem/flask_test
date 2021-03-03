@@ -2,13 +2,7 @@ from app import app
 from flask import render_template, request, redirect, jsonify, make_response
 from datetime import datetime
 
-head_list = {
-             "Home":"/",
-            "Abjut":"/about",
-             "Jinja":"/jinja",
-             "Sign up":"/sign_up",
-             "Guestbook":"/guestbook"
-             }
+
                    
 @app.template_filter("clean_date")
 def clean_date(dt):
@@ -16,7 +10,8 @@ def clean_date(dt):
 
 @app.route("/")
 def index():
-	return render_template("public/index.html")
+        print(app.config)
+        return render_template("public/index.html")
 
 
 @app.route("/about")
@@ -193,3 +188,33 @@ def create_entry():
 
         return res
 
+
+@app.route("/query")
+def query():
+
+        if request.args:
+
+                # We have our query string nicely serialized as a Python dictionary
+                args = request.args
+
+                # We'll create a string to display the parameters & values
+                serialized = ", ".join(f"{k}: {v}" for k, v in request.args.items())
+
+                # Display the query string to the client in a different format
+                return f"(Query) {serialized}", 200
+
+        else:
+
+                return "No query string received", 200 
+'''
+@app.route("/query")
+def query():
+
+        args = request.args
+
+        print(args)
+        for k, v in args.items():
+                    print(f"{k}: {v}")
+
+        return "No query string received", 200
+'''
