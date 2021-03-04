@@ -221,9 +221,10 @@ def query():
         return "No query string received", 200
 '''
 
-app.config["IMAGE_UPLOADS"] = "/home/tech-3/Рабочий стол/test/app/static/img/uploads"
+#app.config["IMAGE_UPLOADS"] = "/home/tech-3/Рабочий стол/test/app/static/img/uploads"
+app.config["IMAGE_UPLOADS"] = "//home/lem/PROJECTS/test/app/static/img/uploads"
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
-app.config["MAX_IMAGE_FILESIZE"] = 0.1 * 1024 * 1024
+app.config["MAX_IMAGE_FILESIZE"] = 4 * 1024 * 1024
 
 def allowed_image(filename):
 
@@ -233,20 +234,17 @@ def allowed_image(filename):
         ext = filename.rsplit(".", 1)[1]
 
         if ext.upper() in app.config["ALLOWED_IMAGE_EXTENSIONS"]:
-                print (10*"ДА ")
                 return True
         else:
-                print (10*"НЕТ ")
                 return False
 
 def allowed_image_filesize(filesize):
-        print (filesize)
+        
         if int(filesize) <= app.config["MAX_IMAGE_FILESIZE"]:
-                print (10*"YES ")
                 return True
         else:
                 return False
-                print (10*"NO ")
+                
 
 @app.route("/upload-image", methods=["GET", "POST"])
 def upload_image():
