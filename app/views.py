@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, jsonify, make_response
 from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
-
+from flask import send_file, send_from_directory, safe_join, abort
 
                    
 @app.template_filter("clean_date")
@@ -12,7 +12,7 @@ def clean_date(dt):
 
 @app.route("/")
 def index():
-        print(app.config)
+  #      print(app.config)
         return render_template("public/index.html")
 
 
@@ -222,9 +222,11 @@ def query():
 '''
 
 #app.config["IMAGE_UPLOADS"] = "/home/tech-3/Рабочий стол/test/app/static/img/uploads"
-app.config["IMAGE_UPLOADS"] = "//home/lem/PROJECTS/test/app/static/img/uploads"
+app.config["IMAGE_UPLOADS"] = "/home/lem/PROJECTS/test/app/static/img/uploads"
 app.config["ALLOWED_IMAGE_EXTENSIONS"] = ["JPEG", "JPG", "PNG", "GIF"]
 app.config["MAX_IMAGE_FILESIZE"] = 4 * 1024 * 1024
+
+
 
 def allowed_image(filename):
 
@@ -279,3 +281,23 @@ def upload_image():
                                 return redirect(request.url)
 
         return render_template("public/upload_image.html")
+
+
+#Learning Flask Ep. 14
+# The absolute path of the directory containing images for users to download
+app.config["CLIENT_IMAGES"] = "/home/lem/PROJECTS/test/app/static/client/img"
+
+# The absolute path of the directory containing CSV files for users to download
+app.config["CLIENT_CSV"] = "/home/lem/PROJECTS/test/app/static/client/csv"
+
+# The absolute path of the directory containing PDF files for users to download
+app.config["CLIENT_PDF"] = "/home/lem/PROJECTS/test/app/static/client/pdf"
+
+
+
+@app.route("/get-image/<image_name>")
+def get_image(image_name):
+        try:
+                return send_from_directory(app.config["CLIENT_IMAGES"], filename=image_name, as_attachment=True)
+        except FileNotFoundError:
+                abort(404)
