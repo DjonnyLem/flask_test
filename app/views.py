@@ -301,3 +301,20 @@ def get_image(image_name):
                 return send_from_directory(app.config["CLIENT_IMAGES"], filename=image_name, as_attachment=True)
         except FileNotFoundError:
                 abort(404)
+
+#============================================================
+#Flask cookies | Learning Flask Ep. 15
+@app.route("/cookies")
+def coolies():
+
+        resp = make_response("Cookies")
+        cookies = request.cookies
+        print(request.cookies)
+        
+        resp.set_cookie("flavor", "chocolate_chip")
+        resp.set_cookie("sex", value="money", max_age=10, path=request.path)
+        
+        return resp
+        
+
+#============================================================                
