@@ -3,7 +3,7 @@ from flask import render_template, request, redirect, jsonify, make_response
 from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
-from flask import send_file, send_from_directory, safe_join, abort
+from flask import send_file, send_from_directory, safe_join, abort, session, url_for
 
                    
 @app.template_filter("clean_date")
@@ -318,3 +318,23 @@ def coolies():
         
 
 #============================================================                
+#The Flask session object | Learning Flask Ep. 16
+
+app.config["SECRET_KEY"] = "OB3Ux3QBsUxCdK0ROCQd_w"
+
+
+users = {
+    "julian": {
+        "username": "julian",
+        "email": "julian@gmail.com",
+        "password": "example",
+        "bio": "Some guy from the internet"
+    },
+    "clarissa": {
+        "username": "clarissa",
+        "email": "clarissa@icloud.com",
+        "password": "sweetpotato22",
+        "bio": "Sweet potato is life"
+    }
+}
+
