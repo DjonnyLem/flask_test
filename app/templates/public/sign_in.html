@@ -1,5 +1,5 @@
-
-{% block title %}sign up{% endblock %}
+{% extends "public/templates/public_template.html" %}
+{% block title %}sign in{% endblock %}
 
 {% block main %}
 
@@ -10,7 +10,7 @@
       <h1>Sign in</h1>
       <hr>
 
-      <form action="/sign-in" method="POST">
+      <form action="/sign_in" method="POST">
 
         <div class="form-group">
           <label>Username</label>

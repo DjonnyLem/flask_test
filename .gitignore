@@ -1,5 +1,6 @@
 /__pycache__
 /.git
+/.vscode
 /myvenv
 /app/__pycache__
 # Основной синтаксис:

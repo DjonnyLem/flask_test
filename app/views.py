@@ -37,7 +37,7 @@ def sign_up():
                 if missing:
                         feedback = f"Missing fields for {', '.join(missing)}"
                         return render_template("public/sign_up.html", feedback=feedback)
-                return redirect (request,url)
+                return redirect (request.url)
         return render_template("public/sign_up.html")        
                
 
@@ -323,7 +323,7 @@ def coolies():
 app.config["SECRET_KEY"] = "OB3Ux3QBsUxCdK0ROCQd_w"
 
 
-users = {
+nusers = {
     "julian": {
         "username": "julian",
         "email": "julian@gmail.com",
@@ -338,3 +338,50 @@ users = {
     }
 }
 
+@app.route("/sign_in", methods=['POST', 'GET'])
+def sign_in():
+        if request.method == 'POST':
+                req = request.form
+                print (req)
+                username = req.get('username')
+                password = req.get('password')
+
+                if not username in nusers:
+                        print ("Username not found")
+                        return redirect(request.url)
+                else:
+                        user = nusers[username]
+
+                if not password == user['password']:
+                        print ('Incorrect password')
+                        return redirect(request.url)
+                else:
+                        session['USERNAME'] = user['username'] 
+                        session['PASSWORD'] = user['password']      
+                        print('Session username set')
+                        print(session)
+                        # return redirect(request.url)
+                        return redirect(url_for("user_profile"))
+
+        return render_template('public/sign_in.html')
+
+
+@app.route("/user_profile")
+def user_profile():
+
+        if not session.get("USERNAME") is None:
+                # 
+                username = session.get("USERNAME")
+                user = nusers[username]
+                return render_template("public/user_profile.html", user=user)
+        else:
+                print("No username found is session")
+                return redirect(url_for("sign_in"))
+        # return render_template("public/user_profile.html", user=user)
+
+@app.route("/sign_out")
+def sign_out():
+
+        session.pop("USERNAME", None)
+        return redirect(url_for("sign_in"))
+        # return '<h2>end</h2>'
