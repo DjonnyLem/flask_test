@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from werkzeug.utils import secure_filename
 from flask import send_file, send_from_directory, safe_join, abort, session, url_for
-
+from flask import flash
                    
 @app.template_filter("clean_date")
 def clean_date(dt):
@@ -385,3 +385,8 @@ def sign_out():
         session.pop("USERNAME", None)
         return redirect(url_for("sign_in"))
         # return '<h2>end</h2>'
+
+#============================================================================
+#Flask message flashing | Learning Flask Ep. 17
+#============================================================================
+        
