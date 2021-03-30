@@ -389,4 +389,22 @@ def sign_out():
 #============================================================================
 #Flask message flashing | Learning Flask Ep. 17
 #============================================================================
-        
+
+@app.route("/signup", methods=['GET', 'POST'])
+def signup():
+        if request.method == 'POST':
+                req=request.form
+
+                username = req.get('username')
+                email = req.get('email')
+                password = req.get('password')    
+
+                if not len(password) >= 10:
+                        flash ('Пароль должен содержать не менее 10 символов', 'warning')
+                        print('Пароль должен содержать не менее 10 символов')
+                        return redirect(request.url)
+                        
+                flash ('Аккаунт создан', 'success')
+                print ('Аккаунт создан')    
+                return redirect(request.url) 
+        return render_template('public/signup.html')          

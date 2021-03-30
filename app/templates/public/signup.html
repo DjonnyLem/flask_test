@@ -1,0 +1,110 @@
+{% extends "public/templates/public_template.html" %}
+
+{% block title %}Signup{% endblock %}
+
+{% block main %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+
+            <h1>Signup</h1>
+            <hr>
+
+            <form action="/signup" method="POST">
+
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" id="username" name="username"
+                        placeholder="Select a username">
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email">
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" id="password" name="password"
+                        placeholder="Create a password">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Sign up</button>
+                {% if feedback %}
+                <p class="text-danger float-right">{{ feedback }}</p>
+                {% endif %}
+            </form>
+
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                <span>{{ message }}</span>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+
+<!-- <div class="row"> -->
+
+    <!-- <div class="col-sm-4"> -->
+        <!-- {% with errors = get_flashed_messages(category_filter=["success"]) %} -->
+            <!-- {% if errors %} -->
+                <!-- {%- for message in errors %} -->
+                    <!-- <div class="alert alert-success alert-dismissible fade show" role="alert"> -->
+                        <!-- <span>{{ message }}</span> -->
+                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+                            <!-- <span aria-hidden="true">&times;</span> -->
+                        <!-- </button> -->
+                    <!-- </div> -->
+                <!-- {% endfor -%} -->
+            <!-- {% endif %} -->
+        <!-- {% endwith %} -->
+    <!-- </div> -->
+
+    <!-- <div class="col-sm-4"> -->
+        <!-- {% with errors = get_flashed_messages(category_filter=["warning"]) %} -->
+            <!-- {% if errors %} -->
+                <!-- {%- for message in errors %} -->
+                    <!-- <div class="alert alert-warning alert-dismissible fade show" role="alert"> -->
+                        <!-- <span>{{ message }}</span> -->
+                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+                            <!-- <span aria-hidden="true">&times;</span> -->
+                        <!-- </button> -->
+                    <!-- </div> -->
+                <!-- {% endfor -%} -->
+            <!-- {% endif %} -->
+        <!-- {% endwith %} -->
+    <!-- </div> -->
+
+    <!-- <div class="col-sm-4"> -->
+        <!-- {% with errors = get_flashed_messages(category_filter=["danger"]) %} -->
+            <!-- {% if errors %} -->
+                <!-- {%- for message in errors %} -->
+                    <!-- <div class="alert alert-danger alert-dismissible fade show" role="alert"> -->
+                        <!-- <span>{{ message }}</span> -->
+                        <!-- <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
+                            <!-- <span aria-hidden="true">&times;</span> -->
+                        <!-- </button> -->
+                    <!-- </div> -->
+                <!-- {% endfor -%} -->
+            <!-- {% endif %} -->
+        <!-- {% endwith %} -->
+    <!-- </div> -->
+
+<!-- </div> -->
+
+
+
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}
