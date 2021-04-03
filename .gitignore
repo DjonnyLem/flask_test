@@ -2,6 +2,7 @@
 /.git
 /.vscode
 /myvenv
+/env
 /app/__pycache__
 # Основной синтаксис:
 
